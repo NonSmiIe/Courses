@@ -44,5 +44,11 @@ namespace API.Data
         {
             context.Entry(user).State = EntityState.Modified;
         }
+        public async Task<AppUser> GetUserByUsernameAsync(string username)
+        {
+            return await context.Users
+                .Include(p => p.Photo)
+                .SingleOrDefaultAsync(x => x.UserName == username);
+        }
     }
 }
