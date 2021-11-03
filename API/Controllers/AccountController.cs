@@ -25,7 +25,7 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
         {
-
+            
             if (await UserExists(registerDTO.Username.ToLower())) return BadRequest("Username is taken");
             using var hmac = new HMACSHA512();
 
@@ -62,6 +62,7 @@ namespace API.Controllers
         {
             return await context.Users.AnyAsync(x => x.UserName == username.ToLower());
         }
+        
     }
 }
 
