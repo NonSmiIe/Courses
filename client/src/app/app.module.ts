@@ -24,9 +24,10 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
-import { FileUploader, FileUploadModule } from 'ng2-file-upload';
+import {  FileUploadModule } from 'ng2-file-upload';
+import { TextInputComponent } from './_forms/text-input/text-input.component';
 
 
 
@@ -45,7 +46,8 @@ import { FileUploader, FileUploadModule } from 'ng2-file-upload';
     ServerErrorComponent,
     MemberCardComponent,
     MemberEditComponent,
-    PhotoEditorComponent
+    PhotoEditorComponent,
+    TextInputComponent
     
   
 
@@ -56,10 +58,12 @@ import { FileUploader, FileUploadModule } from 'ng2-file-upload';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     NgxSpinnerModule,
     NgxGalleryModule,
     FileUploadModule
+    
    
 
 

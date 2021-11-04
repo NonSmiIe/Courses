@@ -7,13 +7,14 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 
 
 
+
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     BsDropdownModule.forRoot(),
     ToastrModule.forRoot({ positionClass: 'toast-bottom-right' }),
-    TabsModule.forRoot(),
+    TabsModule.forRoot()
     
   ],
   exports: [
