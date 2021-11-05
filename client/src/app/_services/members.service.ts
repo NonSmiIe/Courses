@@ -38,7 +38,6 @@ export class MembersService {
 
     return params;
   }
-
   getMembers(userParams: UserParams): Observable<PaginatedResult<Member[]>> {
     
     let params = this.getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
@@ -48,15 +47,19 @@ export class MembersService {
     params = params.append('orderBy', userParams.orderBy);
 
 
-    return this.http.get<Member[]>(this.baseUrl + 'users', { observe: 'response', params }).pipe(
+    return this.getPaginatedResult(this.baseUrl+'users',params)
+  }
+  private getPaginatedResult<T>(url: string, params: HttpParams): Observable<PaginatedResult<T>> {
+    const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>();
+    return this.http.get<T>(url, { observe: 'response', params }).pipe(
       map(response => {
-        this.paginatedResult.result = response.body || [];
-        if (response.headers.get('Pagination')!==null) {
-          this.paginatedResult.pagination = JSON.parse(response.headers.get('Pagination') || '')
+        paginatedResult.result = response.body as any ;
+        if (response.headers.get('Pagination') !== null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination') || '');
         }
-        return this.paginatedResult;
+        return paginatedResult;
       })
-    )
+    );
   }
   getMember(username: string) {
     const member = this.members.find(x => x.username === username);
@@ -81,5 +84,13 @@ export class MembersService {
     this.userParams = new UserParams(this.user);
     return this.userParams;
   }
-  
+  addLike(username: string) {
+    console.log(this.http.post(this.baseUrl + 'likes/' + username, null))
+    return this.http.post(this.baseUrl + 'likes/' + username,null)
+  }
+  getLikes(predicate: string, pageNumber: number, pageSize: number) {
+    let params = this.getPaginationHeaders(pageNumber, pageSize);
+    params = params.append('predicate', predicate);
+    return this.getPaginatedResult<Partial<Member[]>>(this.baseUrl + 'likes', params)
+  }
 }
