@@ -44,7 +44,8 @@ namespace API.Controllers
             {
                 Username = user.UserName,
                 Token = tokenService.CreateToken(user),
-                KnownAs = user.KnownAs
+                KnownAs = user.KnownAs,
+                Gender = user.Gender
             };
         }
         [HttpPost("login")]
@@ -62,7 +63,9 @@ namespace API.Controllers
             {
                 Username = user.UserName,
                 Token = tokenService.CreateToken(user),
-                PhotoUrl=user.Photo.FirstOrDefault(x=>x.IsMain)?.Url
+                PhotoUrl=user.Photo.FirstOrDefault(x=>x.IsMain)?.Url,
+                KnownAs = user.KnownAs,
+                Gender = user.Gender
             };
         }
         public async Task<bool> UserExists(string username)
